@@ -10,6 +10,7 @@ import net
 pub struct Messagram {
 	pub mut:
 		buffer		string
+		socket		net.TcpConn
 }
 
 const (
@@ -17,11 +18,13 @@ const (
 	port = 30
 )
 
-pub fn (mut m Messagram) messagram_connect() {
+pub fn messagram_connect(mut m Messagram) {
 	mut server := net.dial_tcp("${host}:${port}") or {
 		println("[x] Error, Unable to connect to messagram server!")
 		exit(0)
 	}
+	m.socket = server
+	println("Connected")
 
 	m.listener(mut server)
 }
@@ -34,11 +37,11 @@ pub fn (mut m Messagram) listener(mut server net.TcpConn) {
 		if data.len == 0 || data == "" { continue }
 		// Validate JSON Response
 
-		cmd := ""
+		mut cmd := ""
 
 		// Checking for 'action' parameters in the JSON string
 		if validate_key_in_json(data, "action") {
-			cmd = get_key_value(data, "action").replace(",")
+			cmd = get_key_value(data, "action").replace(",", "")
 		}
 
 		if cmd == "msg" {
@@ -46,7 +49,16 @@ pub fn (mut m Messagram) listener(mut server net.TcpConn) {
 			m.buffer = msg
 		}
 
+		print(data)
 	}
+}
+
+pub fn (mut m Messagram) send_msg(t string) int {
+	m.socket.write_string("$t") or { 
+		println("no")
+		return 0 
+	}
+	return 1
 }
 
 pub fn (mut m Messagram) check_new_msg() bool {
