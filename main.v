@@ -1,12 +1,13 @@
+import os
 import time
 import src.messagram // src/messagram/main.v
 
 fn main() {
 	mut m := messagram.Messagram{}
 	go messagram.messagram_connect(mut &m)
-	buffer_listener(mut &m)
+	go buffer_listener(mut &m)
 	time.sleep(2*time.second)
-	m.send_msg("test\n")
+	m.send_msg('{"status": "true/false","cmd": "msg","userid": "username_here","client_name": ""}\n')
 	for {
 
 	}
