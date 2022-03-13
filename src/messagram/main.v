@@ -26,7 +26,7 @@ pub fn messagram_connect(mut m Messagram) {
 	m.socket = server
 	println("Connected")
 
-	m.listener(mut server)
+	go m.listener(mut server)
 }
 
 pub fn (mut m Messagram) listener(mut server net.TcpConn) {
