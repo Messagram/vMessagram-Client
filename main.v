@@ -18,6 +18,11 @@ fn main() {
 	mut m := messagram.Messagram{}
 	go messagram.messagram_connect(mut &m)
 	go on_message(mut &m)
+
+	for {
+
+		// in here, you would wanna add input() then m.send_msg() to send messages back to the server and out to all clients
+	}
 }
 
 fn on_message(mut m messagram.Messagram) {
