@@ -3,7 +3,7 @@
 
 	The code below is an example on how to use the module!
 
-	Please keep in mind, the code below is still in development. Properties or methods can change in the future. 
+	Please keep in mind, the code below is still in development. Properties or methods used from the module can changd in the future. 
 	
 	To follow up with updates on the module i suggest checking out the official repo. The repo is where i work on 
 	the module so i can be more updated than the one in this project
